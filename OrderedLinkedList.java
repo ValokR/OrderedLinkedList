@@ -171,7 +171,52 @@ public class OrderedLinkedList
 	 */
 	public boolean remove(Comparable obj)
 	{
-		// TODO: implement this method (7 points)
+		/** special case: list is empty */
+		if (head.next == tail)
+		{
+			return false;
+		}
+		
+		/** list is not empty */
+		
+		// create reference to previous node
+		OrderedListNode previous = head;
+		
+		// create reference to current node
+		OrderedListNode current = head.next;
+		
+		// create reference to next node
+		OrderedListNode next = current.next;
+		
+		// traverse through list until 1. current references the tail node or 2. an matching item is found
+		while (current != null && !(current.theItem.compareTo(obj) == 0))
+		{
+			// move previous node forward one item in the list
+			previous = current;
+			
+			// move current forward one item in the list
+			current = next;
+			
+			// move next forward one in the list
+			next = next.next;
+		}
+		// when the specified item is not found in the list
+		if (current == null)
+		{
+			return false;
+		}
+		// when item is found in the list
+		else
+		{
+			// connect previous to next
+		    previous.next = next;
+		    
+		    // connect next to previous
+		    next.previous = previous;
+		    
+		    // remove successful
+		    return true;
+		}
 	}
 
 	
