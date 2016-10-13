@@ -357,18 +357,18 @@ public class OrderedLinkedList
 		}
 		
 	}
-
-	/**
-	 *	Nested class OrderedListNode.
-	 *
-	 *	Encapsulates the fundamental building block of an OrderedLinkedList
-	 *	contains a data item, and references to both the next and previous nodes
-	 *	in the list
-	 */
 	
-	
-	// TODO: Implement the nested class OrderedListNode (5 points).  This nested class
-	// should be similar to the nested class ListNode of the class LinkedList, but
-	// should store a data item of type Comparable rather than Object.
-    
+	/***** for testing purposes only *************
+	public static void main(String[] args)
+	{
+		OrderedLinkedList list = new OrderedLinkedList();
+	     list.add("first");
+	     list.add("last");
+	     list.add("next");
+	     list.add("before");
+	     list.add("after");
+	     System.out.println(list.toString());
+	     list.remove("last");
+	     System.out.println(list.toString());
+	} *******************************************/
 }
