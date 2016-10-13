@@ -63,8 +63,104 @@ public class OrderedLinkedList
 	 */
 	public boolean add(Comparable obj)
 	{
-		// TODO: Implement this method (8 points)
+		//create new node
+		OrderedListNode node = new OrderedListNode(obj);
 		
+		/** special case: list is empty */
+		if (head.next == tail)
+		{
+			// connect head to new node
+			head.next = node;
+			
+			// connect new node to head
+			node.previous = head;
+			
+			// connect new node to tail
+			node.next = tail;
+			
+			// connect tail to new node
+			tail.previous = node;
+			
+			// add successful
+			return true;
+		}
+		
+		/** special case: new object is first in the list */
+		if (obj.compareTo(head.next.theItem) < 0)
+		{
+			// create reference to original first node in the list
+			OrderedListNode originalFirstNode = head.next;
+			
+			// connect new node to old first node
+			node.next = head.next;
+			
+			//connect original first node to new node
+			originalFirstNode.previous = node;
+			
+			// connect head to new node
+			head.next = node;
+			
+			// connect new node to head
+			node.previous = head;
+			
+			// add successful
+			return true;
+		}
+		
+		/** special case: new object is last in the list */
+		if (obj.compareTo(tail.previous.theItem) > 0)
+		{
+			// create reference to original last node
+			OrderedListNode originalLastNode = tail.previous;
+			
+			// connect new node to tail
+			node.next = tail;
+			
+			// connect new node to original last node
+			node.previous = originalLastNode;
+			
+			// connect original last node to new node
+			originalLastNode.next = node;
+			
+			//connect tail to new node
+			tail.previous = node;
+			
+			//add successful
+			return true;
+		}
+		
+		/** when new object is in between the first and last items of the list */
+		
+		// create reference to previous node
+		OrderedListNode previous = head;
+		
+		// create reference to current node
+		OrderedListNode current = head.next;
+		
+		// traverse through items in list until you find an object that is > new object */
+		while (current != tail && node.theItem.compareTo(current.theItem) >= 0)
+		{
+			// move previous node forward one spot in the list
+			previous = current;
+			
+			// move the current node forward one spot in the list
+			current = current.next;
+		}
+		
+		// connect previous node to new node
+		previous.next = node;
+		
+		// connect new node to previous
+		node.previous = previous;
+		
+		// connect new node to next node
+		node.next = current;
+		
+		// connect next node to new node
+		current.previous = node;
+		
+		// add successful
+		return true;
 	}
 
 	
