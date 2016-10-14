@@ -61,105 +61,58 @@ public class OrderedLinkedList
 	 *
 	 *	@param	obj		the item to be added
 	 */
-	public boolean add(Comparable obj)
-	{
+	
+	public boolean add(Comparable obj) {
 		//create new node
 		OrderedListNode node = new OrderedListNode(obj);
 		
 		/** special case: list is empty */
-		if (head.next == tail)
-		{
-			// connect head to new node
+		if (head.next == tail) {
 			head.next = node;
-			
-			// connect new node to head
 			node.previous = head;
-			
-			// connect new node to tail
 			node.next = tail;
-			
-			// connect tail to new node
 			tail.previous = node;
 			
-			// add successful
 			return true;
 		}
 		
 		/** special case: new object is first in the list */
-		if (obj.compareTo(head.next.theItem) < 0)
-		{
-			// create reference to original first node in the list
+		if (obj.compareTo(head.next.theItem) < 0) {
 			OrderedListNode originalFirstNode = head.next;
-			
-			// connect new node to old first node
 			node.next = head.next;
-			
-			//connect original first node to new node
 			originalFirstNode.previous = node;
-			
-			// connect head to new node
 			head.next = node;
-			
-			// connect new node to head
 			node.previous = head;
 			
-			// add successful
 			return true;
 		}
 		
 		/** special case: new object is last in the list */
-		if (obj.compareTo(tail.previous.theItem) > 0)
-		{
-			// create reference to original last node
+		if (obj.compareTo(tail.previous.theItem) > 0) {
 			OrderedListNode originalLastNode = tail.previous;
-			
-			// connect new node to tail
 			node.next = tail;
-			
-			// connect new node to original last node
 			node.previous = originalLastNode;
-			
-			// connect original last node to new node
 			originalLastNode.next = node;
-			
-			//connect tail to new node
 			tail.previous = node;
 			
-			//add successful
 			return true;
 		}
 		
 		/** when new object is in between the first and last items of the list */
-		
-		// create reference to previous node
 		OrderedListNode previous = head;
-		
-		// create reference to current node
 		OrderedListNode current = head.next;
 		
 		// traverse through items in list until you find an object that is > new object */
-		while (current != tail && node.theItem.compareTo(current.theItem) >= 0)
-		{
-			// move previous node forward one spot in the list
+		while (current != tail && node.theItem.compareTo(current.theItem) >= 0) {
 			previous = current;
-			
-			// move the current node forward one spot in the list
 			current = current.next;
 		}
 		
-		// connect previous node to new node
 		previous.next = node;
-		
-		// connect new node to previous
 		node.previous = previous;
-		
-		// connect new node to next node
 		node.next = current;
-		
-		// connect next node to new node
 		current.previous = node;
 		
-		// add successful
 		return true;
 	}
 
@@ -169,52 +122,32 @@ public class OrderedLinkedList
 	 *
 	 *	@param	obj		the item to be removed
 	 */
+	
 	public boolean remove(Comparable obj)
 	{
 		/** special case: list is empty */
-		if (head.next == tail)
-		{
+		if (head.next == tail) {
 			return false;
 		}
 		
 		/** list is not empty */
-		
-		// create reference to previous node
 		OrderedListNode previous = head;
-		
-		// create reference to current node
 		OrderedListNode current = head.next;
-		
-		// create reference to next node
 		OrderedListNode next = current.next;
 		
 		// traverse through list until 1. current references the tail node or 2. an matching item is found
-		while (current != null && !(current.theItem.compareTo(obj) == 0))
-		{
-			// move previous node forward one item in the list
+		while (current != null && !(current.theItem.compareTo(obj) == 0)) {
 			previous = current;
-			
-			// move current forward one item in the list
 			current = next;
-			
-			// move next forward one in the list
 			next = next.next;
 		}
+		
 		// when the specified item is not found in the list
-		if (current == null)
-		{
+		if (current == null) {
 			return false;
-		}
-		// when item is found in the list
-		else
-		{
-			// connect previous to next
+		} else {          // when item is found in the list
 		    previous.next = next;
-		    
-		    // connect next to previous
 		    next.previous = previous;
-		    
-		    // remove successful
 		    return true;
 		}
 	}
@@ -292,67 +225,46 @@ public class OrderedLinkedList
 	/**************************************************************************
 	 * Inner Classes
 	 *************************************************************************/
-	public static class OrderedListNode
-	{
-		
-		
-		
-		/************
+	public static class OrderedListNode {
+		/*
 		 * Attributes   
-		 ************/
+		 */
 		
-		
-		/** the data item */
+		// the data item
 		Comparable theItem;
-		
-		/** reference to the next node in the list */
+		// reference to the next node in the list
 		OrderedListNode next;
-		
-		/** reference to the previous node in the list */
+		// reference to the previous node in the list
 		OrderedListNode previous;
 		
-		
-		
-		/**************
+		/*
 		 * Constructors
-		 **************/
+		 */
 		
-		
-		OrderedListNode(Comparable theItem)
-		{
+		OrderedListNode(Comparable theItem) {
 			this(theItem, null, null);
 		}
 		
-		
-		OrderedListNode(Comparable item, OrderedListNode previousNode, OrderedListNode nextNode)
-		{
+		OrderedListNode(Comparable item, OrderedListNode previousNode, OrderedListNode nextNode) {
 			this.theItem = item;
 			this.previous = previousNode;
 			this.next = nextNode;
 		}
 		
-		
-		
-		/*********
+		/*
 		 * Methods
-		 *********/
+		 */
 		
-		
-		/** get the item of data from a cell */
-		Comparable getData()	
-		{
+		// get the item of data from a cell
+		Comparable getData() {
 			return theItem;
 		}
-		
-		/** get a reference to the previous node */
-		OrderedListNode getPrevious()	
-		{
+		// get a reference to the previous node
+		OrderedListNode getPrevious() {
 			return previous;
 		}
-		
-		/** get a reference to the next node */
-		OrderedListNode getNext()
-		{
+		// get a reference to the next node
+		OrderedListNode getNext() {
 			return next;
 		}
 		
